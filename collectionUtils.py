@@ -32,4 +32,4 @@ def getScale(lst_notes):
         return lst_toReurn
     
     
-print(getScale("C D E F G A B C"))
+#print(getScale("C D E F G A B C"))
