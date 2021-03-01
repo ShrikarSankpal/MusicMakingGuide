@@ -1,64 +1,51 @@
 import pandas
 
 df_scales = pandas.read_csv('datasets/df_scalesData.csv')
-#print(df_scales)
+df_chords = pandas.read_csv('datasets/df_chordsData.csv')
 
 def getScale(lst_notes):
-    lst_toReurn=[]
-    #print("In getScale()")
-    #print("lst_notes: ",lst_notes, len(lst_notes))
-    #print("lst_notes, split: ",lst_notes.split(),type(lst_notes.split()))
+    result={'Exact Matches':[],'Scales Containing Given Notes':[]}
     for index, row in df_scales.iterrows():
-
-        #print(row['Notes'].strip('[').strip(']').split(' ,'))
-        #print("row['Notes]: ",row['Notes'],type(row['Notes']), row['Note'],row['Scale'])
-        #print("splitted row['Notes]: ",row['Notes'].split(", "))
         A = set([i[1:-1] for i in row['Notes'].split(", ")])
         B = set(lst_notes.split())
-        
-        #symm_diff = set.symmetric_difference(A,B)
+
         interxn = set.intersection(A,B)
         #print("set1: ", A, type(A),len(A))
         #print("set2: ", B, type(B),len(B))
         #print("intersection: ",interxn)
         
         if len(interxn)==len(B):
-            #print("Exact match found")
-            lst_toReurn.append(row['Note']+" "+row['Scale'])
+            result['Scales Containing Given Notes'].append(row['Note']+" "+row['Scale'])
+            if len(interxn)==len(A):
+                result['Exact Matches'].append(row['Note']+" "+row['Scale'])
     
-    if len(lst_toReurn)==0:
+    if len(result['Scales Containing Given Notes'])==0:
         return "Not Found"
     else:
-        return lst_toReurn
+        return result
 
 def getChord(lst_notes):
-    lst_toReurn=[]
-    #print("In getScale()")
-    #print("lst_notes: ",lst_notes, len(lst_notes))
-    #print("lst_notes, split: ",lst_notes.split(),type(lst_notes.split()))
-    for index, row in df_scales.iterrows():
-
-        #print(row['Notes'].strip('[').strip(']').split(' ,'))
-        #print("row['Notes]: ",row['Notes'],type(row['Notes']), row['Note'],row['Scale'])
-        #print("splitted row['Notes]: ",row['Notes'].split(", "))
-        A = set([i[1:-1] for i in row['Notes'].split(", ")])
+    result={'Exact Matches':[],'Chords Containing Given Notes':[]}
+    
+    for index, row in df_chords.iterrows():
+        A = set(row['ChordNotes'].split(","))
         B = set(lst_notes.split())
-        
-        #symm_diff = set.symmetric_difference(A,B)
         interxn = set.intersection(A,B)
         #print("set1: ", A, type(A),len(A))
         #print("set2: ", B, type(B),len(B))
         #print("intersection: ",interxn)
         
         if len(interxn)==len(B):
-            #print("Exact match found")
-            lst_toReurn.append(row['Note']+" "+row['Scale'])
+            result['Chords Containing Given Notes'].append(row['indexNoteChord'])
+            if len(interxn)==len(A):
+                result['Exact Matches'].append(row['indexNoteChord'])
+            
     
-    if len(lst_toReurn)==0:
+    if len(result['Chords Containing Given Notes'])==0:
         return "Not Found"
     else:
-        return lst_toReurn
+        return result
     
     
-#print(getScale("C D E F G A B C"))
-print(getChord("C E G"))
+#print(getScale("C D E F G A"))
+#print(getChord("C E A"))
