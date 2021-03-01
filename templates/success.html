@@ -11,7 +11,11 @@
     <div class="container">
       {% if message %}
       <h1 class = "message">
-          {{ message | safe }}
+          {% for key, value in message.items() %}
+            <h1>{{key}}</h1>
+            
+            {{value}}
+          {% endfor %}
       </h1>
       {% endif %}
       <!--<h1>Will show the answer after I am done coding for it</h1>-->

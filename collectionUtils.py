@@ -36,9 +36,15 @@ def getChord(lst_notes):
         #print("intersection: ",interxn)
         
         if len(interxn)==len(B):
-            result['Chords Containing Given Notes'].append(row['indexNoteChord'])
+            temp="'-'".join(row['indexNoteChord'][1:-1].\
+                replace(",","").\
+                    split(" ")).\
+                        replace("'-'","").\
+                            replace("''"," ")[1:-1]
+            #print(temp)
+            result['Chords Containing Given Notes'].append(temp)
             if len(interxn)==len(A):
-                result['Exact Matches'].append(row['indexNoteChord'])
+                result['Exact Matches'].append(temp)
             
     
     if len(result['Chords Containing Given Notes'])==0:
@@ -49,3 +55,4 @@ def getChord(lst_notes):
     
 #print(getScale("C D E F G A"))
 #print(getChord("C E A"))
+#getChord("C E A")
