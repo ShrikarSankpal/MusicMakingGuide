@@ -40,4 +40,4 @@ def submit2():
         return render_template('success.html', message=msg)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='127.0.0.1')
