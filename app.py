@@ -18,6 +18,17 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+#class scalesData(db.nodel):
+#    __tablename__='scalesData'
+#    note = db.Column(db.String(2))
+
+
+
+
+
+
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -37,6 +48,15 @@ def submit2():
         chord_notes = request.form['chord_notes']
         print("User entered :\n{},{}".format(chord_notes,type(chord_notes)))
         msg = cu.getChord(chord_notes)
+        return render_template('success.html', message=msg)
+
+@app.route('/submit3', methods = ['POST'])
+def submit3():
+    if request.method == 'POST':
+        scale_base_note = request.form['scale_base_note']
+        scale_type = request.form['scale_type']
+        print("User entered :\n{},{}".format(scale_base_note,type(scale_base_note), scale_type, type(scale_type)))
+        msg = cu.getScaleNotes(scale_base_note, scale_type)
         return render_template('success.html', message=msg)
 
 if __name__ == '__main__':

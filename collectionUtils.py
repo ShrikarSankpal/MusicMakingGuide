@@ -52,7 +52,16 @@ def getChord(lst_notes):
     else:
         return result
     
-    
-#print(getScale("C D E F G A"))
-#print(getChord("C E A"))
-#getChord("C E A")
+def getScaleNotes(scale_base_note, scale_type):
+    result={'Exact Matches':[],'Nearby':[]}
+    filter_1 = ((df_scales['Note']==scale_base_note) & (df_scales['Scale']==scale_type)).values
+    scaleNotes=list(df_scales.iloc[filter_1]['Notes'].values)
+    result['Exact Matches'].append(scaleNotes)
+
+    return result
+
+if __name__=='__main__' :
+    #print(getScale("C D E F G A"))
+    #print(getChord("C E A"))
+    #getChord("C E A")
+    print(getScaleNotes("C","Natural Minor"))
