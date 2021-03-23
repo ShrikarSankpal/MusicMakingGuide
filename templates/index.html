@@ -45,15 +45,37 @@
             name="scale_base_note"
             placeholder="Enter Scale Note(e.g. C)"
           />
-          <input
-            type="text"
-            name="scale_type"
-            placeholder="Enter Scale Type(e.g. Natural Minor)"
-          />
+          <select name="scale_type" type="text">
+            {%if message %}
+              {% for key in message['scale_types'] %}
+                <option value={{ key }} type="text">{{ key }}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
         </div>
         <input type="submit" value="Submit" class="btn" />
       </form>
-        
+
+      <form action="/submit4" method="POST">
+        <h1>Chord Notes Finder</h1>
+        <div class="form-group">
+          <h2>Find Chord Notes</h2>
+          <input
+            type="text"
+            name="chord_base_note"
+            placeholder="Enter Chord Note(e.g. C)"
+          />
+          
+          <select name="chord_type" type="text"> 
+            {%if message %}
+              {% for key in message['chord_types'] %}
+                <option value={{ key }} type="text">{{ key }}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
+        </div>
+        <input type="submit" value="Submit" class="btn" />
+      </form>
         <!--
         <div class="form-group">
           <h3>Dealer</h3>
@@ -90,11 +112,7 @@
             placeholder="Tell us what you liked and/or did not like"
           ></textarea>
         </div>
-        -->  
-      
-    
-   
-      
+        -->   
     </div>
   </body>
   

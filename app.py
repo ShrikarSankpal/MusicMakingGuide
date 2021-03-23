@@ -24,14 +24,9 @@ db = SQLAlchemy(app)
 
 
 
-
-
-
-
-
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', message=cu.sendDict())
 
 @app.route('/submit1', methods = ['POST'])
 def submit1():
@@ -55,8 +50,17 @@ def submit3():
     if request.method == 'POST':
         scale_base_note = request.form['scale_base_note']
         scale_type = request.form['scale_type']
-        print("User entered :\n{},{}".format(scale_base_note,type(scale_base_note), scale_type, type(scale_type)))
+        print("User entered :\n{},{},{},{}".format(scale_base_note,type(scale_base_note), scale_type, type(scale_type)))
         msg = cu.getScaleNotes(scale_base_note, scale_type)
+        return render_template('success.html', message=msg)
+
+@app.route('/submit4', methods = ['POST'])
+def submit4():
+    if request.method == 'POST':
+        chord_base_note = request.form['chord_base_note']
+        chord_type = request.form['chord_type']
+        print("User entered :\n{},{},{},{}".format(chord_base_note,type(chord_base_note), chord_type, type(chord_type)))
+        msg = cu.getChordNotes(chord_base_note, chord_type)
         return render_template('success.html', message=msg)
 
 if __name__ == '__main__':
